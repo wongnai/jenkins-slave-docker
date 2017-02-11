@@ -109,7 +109,8 @@ ADD startx11vnc.sh /usr/bin/startx11vnc.sh
 
 RUN chmod +x /usr/bin/startXvfb.sh /usr/bin/startx11vnc.sh
 
-RUN chown -R ${CONTAINER_USER}:${CONTAINER_GROUP} /home/${CONTAINER_USER}
+RUN mkdir /home/${CONTAINER_USER} \
+    && chown -R ${CONTAINER_USER}:${CONTAINER_GROUP} /home/${CONTAINER_USER}
 
 EXPOSE 5900
 
