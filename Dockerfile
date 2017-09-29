@@ -70,13 +70,13 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION
 # Install Jenkins Swarm-Slave
 RUN mkdir -p ${SWARM_HOME} && \
     wget --directory-prefix=${SWARM_HOME} \
-      https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar.jar && \
-    sha1sum ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar.jar && \
-    echo "$SWARM_SHA ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar.jar" | sha1sum -c - && \
-    mv ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar.jar ${SWARM_HOME}/swarm-client-jar.jar && \
+      https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}.jar && \
+    sha1sum ${SWARM_HOME}/swarm-client-${SWARM_VERSION}.jar && \
+    echo "$SWARM_SHA ${SWARM_HOME}/swarm-client-${SWARM_VERSION}.jar" | sha1sum -c - && \
+    mv ${SWARM_HOME}/swarm-client-${SWARM_VERSION}.jar ${SWARM_HOME}/swarm-client.jar && \
     mkdir -p ${SWARM_WORKDIR} && \
     chown -R ${CONTAINER_USER}:${CONTAINER_GROUP} ${SWARM_HOME} ${SWARM_WORKDIR} && \
-    chmod +x ${SWARM_HOME}/swarm-client-jar.jar
+    chmod +x ${SWARM_HOME}/swarm-client.jar
 
 # Install docker client 
 RUN wget -O /tmp/docker.tgz https://download.docker.com/linux/static/stable/x86_64/${DOCKER_TAR_NAME} && \

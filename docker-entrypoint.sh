@@ -53,7 +53,7 @@ unset SWARM_MASTER_URL
 
 jenkins_workdir="-fsroot "${SWARM_WORKDIR}
 
-SWARM_CLIENT_JAR=${SWARM_HOME}/swarm-client-jar-with-dependencies.jar
+SWARM_CLIENT_JAR=${SWARM_HOME}/swarm-client.jar
 
 if [ "$1" = 'swarm' ]; then
   # Run the Swarm-Client according to environment variables.
