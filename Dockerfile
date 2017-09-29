@@ -4,7 +4,7 @@ MAINTAINER Suparit Krityakien <suparit@wongnai.com>
 USER root
 
 # Jenkins Swarm Version
-ARG SWARM_VERSION=2.2
+ARG SWARM_VERSION=3.4
 # Container User
 ARG CONTAINER_USER=swarmslave
 ARG CONTAINER_UID=1000
@@ -13,11 +13,11 @@ ARG CONTAINER_GID=1000
 
 ARG GIT_LFS_VERSION=1.4.1
 ARG GIT_LFS_SHA=f02e5f720aad2738458426545d3b9626e7c7410d
-ARG TINI_VERSION=0.10.0
-ARG TINI_SHA=7d00da20acc5c3eb21d959733917f6672b57dabb
-ARG SWARM_SHA=731ca367119d4b46421c70367111f4c9902a2cb7
+ARG TINI_VERSION=0.16.1
+ARG TINI_SHA=d1cb5d71adc01d47e302ea439d70c79bd0864288
+ARG SWARM_SHA=ef74404b14710491ca7e416bb9bed29f7f5236db
  
-ARG DOCKER_TAR_NAME=docker-1.12.1.tgz
+ARG DOCKER_TAR_NAME=docker-17.09.0-ce.tgz
 
 ENV LANG=C.UTF-8 \
     LANGUAGE=C.UTF-8 \
@@ -70,16 +70,16 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION
 # Install Jenkins Swarm-Slave
 RUN mkdir -p ${SWARM_HOME} && \
     wget --directory-prefix=${SWARM_HOME} \
-      https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar && \
-    sha1sum ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar && \
-    echo "$SWARM_SHA ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar" | sha1sum -c - && \
-    mv ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar ${SWARM_HOME}/swarm-client-jar-with-dependencies.jar && \
+      https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar.jar && \
+    sha1sum ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar.jar && \
+    echo "$SWARM_SHA ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar.jar" | sha1sum -c - && \
+    mv ${SWARM_HOME}/swarm-client-${SWARM_VERSION}-jar.jar ${SWARM_HOME}/swarm-client-jar.jar && \
     mkdir -p ${SWARM_WORKDIR} && \
     chown -R ${CONTAINER_USER}:${CONTAINER_GROUP} ${SWARM_HOME} ${SWARM_WORKDIR} && \
-    chmod +x ${SWARM_HOME}/swarm-client-jar-with-dependencies.jar
+    chmod +x ${SWARM_HOME}/swarm-client-jar.jar
 
 # Install docker client 
-RUN wget -O /tmp/docker.tgz https://get.docker.com/builds/Linux/x86_64/${DOCKER_TAR_NAME} && \
+RUN wget -O /tmp/docker.tgz https://download.docker.com/linux/static/stable/x86_64/${DOCKER_TAR_NAME} && \
     tar zxf /tmp/docker.tgz -C /tmp && \
     cp /tmp/docker/docker /usr/bin/docker  && \
     rm -rf /tmp/*
