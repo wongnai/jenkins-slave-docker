@@ -4,7 +4,7 @@ MAINTAINER Suparit Krityakien <suparit@wongnai.com>
 USER root
 
 # Jenkins Swarm Version
-ARG SWARM_VERSION=3.4
+ARG SWARM_VERSION=3.6
 # Container User
 ARG CONTAINER_USER=swarmslave
 ARG CONTAINER_UID=1000
